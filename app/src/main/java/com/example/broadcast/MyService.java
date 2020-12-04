@@ -8,7 +8,7 @@ import android.os.IBinder;
 public class MyService extends Service {
 
     static Boolean flag = false;
-    private int h=0,m=0,s=0;
+    static int h=0,m=0,s=0,ms=0;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -24,17 +24,21 @@ public class MyService extends Service {
             public void run() {
                 while (flag){
                     try{
-                        Thread.sleep(1000);
+                        Thread.sleep(10);
                     }catch (InterruptedException e){
                         e.printStackTrace();
                     }
-                    s++;
-                    if(s>=60){
-                        s=0;
-                        m++;
-                        if(m>=60){
-                            m=0;
-                            h++;
+                    ms++;
+                    if(ms>=100) {
+                        ms = 0;
+                        s++;
+                        if (s >= 60) {
+                            s = 0;
+                            m++;
+                            if (m >= 60) {
+                                m = 0;
+                                h++;
+                            }
                         }
                     }
                     Intent intent = new Intent("MyMessage");
@@ -42,6 +46,7 @@ public class MyService extends Service {
                     bundle.putInt("H",h);
                     bundle.putInt("M",m);
                     bundle.putInt("S",s);
+                    bundle.putInt("MS",ms);
                     intent.putExtras(bundle);
                     sendBroadcast(intent);
                 }

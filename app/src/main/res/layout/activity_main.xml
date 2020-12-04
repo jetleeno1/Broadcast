@@ -10,7 +10,7 @@
         android:id="@+id/tv_clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="00:00:00"
+        android:text="00:00:00.00"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -26,4 +26,13 @@
         app:layout_constraintStart_toStartOf="@+id/tv_clock"
         app:layout_constraintTop_toBottomOf="@+id/tv_clock" />
 
+    <Button
+        android:id="@+id/btn_s"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="重置"
+        app:layout_constraintEnd_toEndOf="@+id/btn"
+        app:layout_constraintStart_toStartOf="@+id/btn"
+        app:layout_constraintTop_toBottomOf="@+id/btn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

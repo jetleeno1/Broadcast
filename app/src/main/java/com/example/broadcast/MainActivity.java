@@ -15,7 +15,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private TextView tv_clock;
-    private Button btn;
+    private Button btn,btn_s;
 
     private Boolean flag = false;
 
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             Bundle b = intent.getExtras();
-            tv_clock.setText(String.format("%02d:%02d:%02d",b.getInt("H"),b.getInt("M"),b.getInt("S")));
+            tv_clock.setText(String.format("%02d:%02d:%02d.%02d",b.getInt("H"),b.getInt("M"),b.getInt("S"),b.getInt("MS")));
         }
     };
 
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         tv_clock = findViewById(R.id.tv_clock);
         btn = findViewById(R.id.btn);
+        btn_s = findViewById(R.id.btn_s);
 
         registerReceiver(receiver,new IntentFilter("MyMessage"));
 
@@ -54,6 +55,18 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"計時暫停",Toast.LENGTH_SHORT).show();
                 }
                 startService(new Intent(MainActivity.this,MyService.class).putExtra("flag",flag));
+            }
+        });
+
+        btn_s.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyService.h=0;
+                MyService.m=0;
+                MyService.s=0;
+                MyService.ms=0;
+                tv_clock.setText("00:00:00.00");
+                Toast.makeText(MainActivity.this,"重置計時",Toast.LENGTH_SHORT).show();
             }
         });
     }
